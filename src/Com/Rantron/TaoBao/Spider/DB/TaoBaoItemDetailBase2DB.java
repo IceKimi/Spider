@@ -25,7 +25,46 @@ public class TaoBaoItemDetailBase2DB {
 	
 	}
 	
-	public void add2DB(JSONObject jsonObj)
+	public synchronized void add2DB(JSONObject jsonObj,String keywords)
+	{
+		if(connection==null || pstmt==null)
+			initDB();
+		long itemId = jsonObj.getLong("Itemid");
+		long cid = jsonObj.getLong("CategoryId");
+		String title = jsonObj.getString("Title");
+		int soldQuantitly = jsonObj.getInt("SoldQuantity");
+		double price = jsonObj.getDouble("Price");
+		String props = jsonObj.get("Props").toString();
+		String location = jsonObj.getString("Location");
+		String sellerNick = jsonObj.getString("SellerNick");
+		String shopTitle = jsonObj.getString("ShopTitle");
+		String shopType = jsonObj.getString("ShopType");
+		try {
+			pstmt.setLong(1,itemId);
+			pstmt.setLong(2, cid);
+			pstmt.setString(3, keywords);
+			pstmt.setString(4, title);
+			pstmt.setInt(5,soldQuantitly );
+			pstmt.setDouble(6, price);
+			pstmt.setString(7, props);
+			pstmt.setString(8, location);
+			pstmt.setString(9, sellerNick);
+			pstmt.setString(10, shopType);
+			pstmt.setString(11, shopTitle);
+			pstmt.setLong(12, DateTimeUtil.GetCurrentUnixDate());
+			pstmt.execute();
+			connection.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	
+	public synchronized void add2DB(JSONObject jsonObj)
 	{
 		if(connection==null || pstmt==null)
 			initDB();
@@ -38,17 +77,20 @@ public class TaoBaoItemDetailBase2DB {
 		String location = jsonObj.getString("Location");
 		String sellerNick = jsonObj.getString("SellerNick");
 		String shopTitle = jsonObj.getString("ShopTitle");
+		String shopType = jsonObj.getString("ShopType");
 		try {
 			pstmt.setLong(1,itemId);
 			pstmt.setLong(2, cid);
+			pstmt.setString(3, "");
 			pstmt.setString(4, title);
 			pstmt.setInt(5,soldQuantitly );
 			pstmt.setDouble(6, price);
 			pstmt.setString(7, props);
 			pstmt.setString(8, location);
 			pstmt.setString(9, sellerNick);
-			pstmt.setString(10, shopTitle);
-			pstmt.setLong(11, DateTimeUtil.GetCurrentUnixDate());
+			pstmt.setString(10, shopType);
+			pstmt.setString(11, shopTitle);
+			pstmt.setLong(12, DateTimeUtil.GetCurrentUnixDate());
 			pstmt.execute();
 			connection.commit();
 		} catch (SQLException e) {
