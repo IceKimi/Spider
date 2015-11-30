@@ -15,10 +15,10 @@ public class KeywordsRankExecutor {
 		final RantronSpiderProxy proxy = RantronSpiderProxy.getInstance();
 		// proxy.setProxys("123.59.87.193;120.132.93.186;120.132.93.131;120.132.93.183");
 		proxy.setProxys("192.168.0.33;192.168.0.46;192.168.0.47");
-		final String targerId = "524393794968";
-		String[] searchWords = { "羽绒服新款"};
+		final String targerId = "524119206813";
+		String[] searchWords = { "狐狸毛超大毛领羽绒服","鹅绒羽绒服中长款女","大毛领鹅绒羽绒服中长款","大牌鹅绒羽绒服中长款女"};
 
-		ExecutorService pool = Executors.newFixedThreadPool(1);
+		ExecutorService pool = Executors.newFixedThreadPool(2);
 		for (final String keywords : searchWords) {
 
 			Runnable runner = new Runnable() {
@@ -31,10 +31,9 @@ public class KeywordsRankExecutor {
 
 						final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords(keywords,
 								i);
-						System.out.println("Search page:" + (i + 1) + "\tKeywords:" + keywords);
 						for (int index = 0; index < itemidlist.size(); index++) {
 							if (itemidlist.get(index).compareTo(targerId)==0)
-								System.out.println("page:" + (i + 1) + "\t" + "index:" + index);
+								System.out.println("page:" + (i + 1) + "\t" + "index:" + index+"\tkeywords:"+keywords);
 						}
 						try {
 							Thread.sleep(1000);

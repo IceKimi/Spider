@@ -25,13 +25,14 @@ public class TaoBaoItemDetailSpider extends RantronSpider {
 	{
 		Map<String, String> params = new HashMap<String, String>();
 		String url = "";
+		JSONObject jsonObject=null;
 		if(accessWay == AccessWay.MOBILE)
 		{
 			url = ItemDetail_Mobile_URL_TAMPLATE.replace("[$ITEMID]", itemid);
 			params.put(CatchParamEnum.HEADER_REFERER.getName(), "https://s.taobao.com/");
 			params.put(CatchParamEnum.TARGET_TIMEOUT.getName(), "5000");
 			String htmlcontent = CatchHtml(url, params, proxy);
-			JSONObject jsonObject = (JSONObject)TaoBaoMobileItemDetailParser.getJsonData(htmlcontent);
+			jsonObject = (JSONObject)TaoBaoMobileItemDetailParser.getJsonData(htmlcontent);
 			return jsonObject;
 			
 			
@@ -41,7 +42,7 @@ public class TaoBaoItemDetailSpider extends RantronSpider {
 			url = ItemDetail_URL_TAMPLATE.replace("[$ITEMID]", itemid);
 			params.put(CatchParamEnum.HEADER_REFERER.getName(), "https://items.taobao.com/");
 		}
-		return url;
+		return jsonObject;
 		
 		
 		

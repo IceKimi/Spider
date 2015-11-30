@@ -7,14 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Com.Rantron.TaoBao.Parser.AlibabaSearchPageParser;
 import Com.Rantron.TaoBao.Parser.TaoBaoSearchPageParser;
 
 public class TaoBaoSearchPageSpider extends RantronSpider {
 
 
 	private static final String ItemDetail_Mobile_URL_TAMPLATE = "http://hws.m.taobao.com/cache/wdetail/5.0/?id=[$ITEMID]";
-	private static final String Search_URL_TAMPLATE = "https://s.taobao.com/search?q=[$SEARCHWORDS]&s=[$OFFSET]";
+	private static final String Search_URL_TAMPLATE = "https://s.taobao.com/search?q=[$SEARCHWORDS]&bcoffset=[$NTOFFSET]&ntoffset=[$NTOFFSET]&s=[$OFFSET]";
 
 	private AccessWay accessWay = AccessWay.PC;
 
@@ -26,7 +25,7 @@ public class TaoBaoSearchPageSpider extends RantronSpider {
 			if (accessWay == AccessWay.PC) {
 
 				url = Search_URL_TAMPLATE.replace("[$SEARCHWORDS]", URLEncoder.encode(SearchWords, "GBK"))
-						.replace("[$OFFSET]", URLEncoder.encode(String.valueOf(pageIndex*44), "GBK"));
+						.replace("[$OFFSET]", URLEncoder.encode(String.valueOf(pageIndex*44), "GBK")).replace("[$NTOFFSET]", URLEncoder.encode(String.valueOf(5-3*pageIndex),"GBK"));
 
 				params.put(CatchParamEnum.HEADER_REFERER.getName(), "http://s.taobao.com/");
 				params.put(CatchParamEnum.TARGET_TIMEOUT.getName(), "5000");

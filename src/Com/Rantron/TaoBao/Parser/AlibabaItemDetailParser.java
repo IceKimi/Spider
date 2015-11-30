@@ -2,7 +2,6 @@ package Com.Rantron.TaoBao.Parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,7 +34,7 @@ public class AlibabaItemDetailParser {
 	public static int getItemDealRecordsByHtml(String content)
 	{
 
-		int dealRecord = -1;
+		int dealRecord = 0;
 		Matcher m = Pattern.compile("\"title\":\"成交<em>([\\s\\S]*?)</em>").matcher(content);
 		if(m.find())
 			try {
@@ -84,9 +83,17 @@ public class AlibabaItemDetailParser {
 		String priceStr = "";
 		Matcher m = Pattern.compile("<meta property=\"og:product:price\" content=\"([\\s\\S]*?)\"/>").matcher(content);
 		if(m.find())
+		{
 			priceStr = m.group(1);
-		price = Double.valueOf(priceStr);
-		
+			try
+			{
+				price = Double.valueOf(priceStr);
+			}
+			catch(java.lang.NumberFormatException e)
+			{
+				price = 0.0;
+			}
+		}
 		return price;
 	}
 	
@@ -96,9 +103,17 @@ public class AlibabaItemDetailParser {
 		String priceStr = "";
 		Matcher m = Pattern.compile("<meta property=\"og:product:orgprice\" content=\"([\\s\\S]*?)\"/>").matcher(content);
 		if(m.find())
+		{
 			priceStr = m.group(1);
-		price = Double.valueOf(priceStr);
-		
+			try
+			{
+				price = Double.valueOf(priceStr);
+			}
+			catch(java.lang.NumberFormatException e)
+			{
+				price = 0.0;
+			}
+		}
 		return price;
 	}
 	
@@ -149,8 +164,6 @@ public class AlibabaItemDetailParser {
 		while(m1.find()&&m2.find())
 			props.add(m1.group(1)+":"+m2.group(1));
 		return props.toArray(new String[props.size()]);
-		
-		
 	}
 	
 

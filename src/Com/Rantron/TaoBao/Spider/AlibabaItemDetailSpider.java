@@ -20,17 +20,15 @@ public class AlibabaItemDetailSpider extends RantronSpider{
 	{
 		Map<String, String> params = new HashMap<String, String>();
 		String url = "";
+		JSONObject jsonObject=null;
 		if(accessWay == AccessWay.MOBILE)
 		{
 			url = ItemDetail_Mobile_URL_TAMPLATE.replace("[$ITEMID]", itemid);
 			params.put(CatchParamEnum.HEADER_REFERER.getName(), "https://m.1688.com/");
 			params.put(CatchParamEnum.TARGET_TIMEOUT.getName(), "5000");
 			String htmlcontent = CatchHtml(url, params, proxy);
-			JSONObject jsonObject = (JSONObject)AlibabaMobileItemDetailParser.getJsonData(htmlcontent);
-			System.out.println(jsonObject);
+			jsonObject = (JSONObject)AlibabaMobileItemDetailParser.getJsonData(htmlcontent);
 //			TaoBaoItemBase taoBaoItemBase = TaoBaoMobileItemDetailParser.getTaoBaoItemBase(htmlcontent);
-			return jsonObject;
-			
 			
 		}
 		else if(accessWay == AccessWay.PC)
@@ -38,10 +36,11 @@ public class AlibabaItemDetailSpider extends RantronSpider{
 			url = ItemDetail_URL_TAMPLATE.replace("[$ITEMID]", itemid);
 			params.put(CatchParamEnum.HEADER_REFERER.getName(), "http://detail.1688.com/");
 			String htmlcontent = CatchHtml(url, params, proxy);
-			JSONObject jsonObject = (JSONObject)AlibabaItemDetailParser.getJsonData(htmlcontent);
-			System.out.println(jsonObject);
+			jsonObject = (JSONObject)AlibabaItemDetailParser.getJsonData(htmlcontent);
+			
 		}
-		return url;
+		return jsonObject;
+	
 		
 		
 		

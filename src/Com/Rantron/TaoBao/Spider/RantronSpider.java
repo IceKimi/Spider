@@ -16,6 +16,14 @@ public class RantronSpider {
 		PC,
 		MOBILE;
 	}
+	
+	public enum ECOMMERCE
+	{
+		TAOBAO,
+		TMALL,
+		JD,
+		AMAZON;
+	}
 	public enum CatchParamEnum {
 		HEADER_USER_AGENT("User-Agent"), HEADER_HOST("host"), HEADER_ACCEPT("Accept"), HEADER_ACCEPT_LANGUAGE("Accept-Language"), HEADER_ACCEPT_ENCODING(
 				"Accept-Encoding"), HEADER_REFERER("Referer"), HEADER_CONNECTION("Connection"), HEADER_CONTENT_TYPE("Content-Type"), HEADER_X_FORWARDED_FOR(
@@ -66,6 +74,10 @@ public class RantronSpider {
 		config.setTimeoutForConnect(5000);
 		if(params!=null && params.containsKey(CatchParamEnum.HEADER_REFERER.getName()))
 			config.addHeader(CatchParamEnum.HEADER_REFERER.getName(), params.get(CatchParamEnum.HEADER_REFERER.getName()));
+		if (params != null && params.containsKey(CatchParamEnum.COOKIE.getName())) {
+			config.setCookie(params.get(CatchParamEnum.COOKIE.getName()));
+		}
+		
 		if(rantronSpiderProxy!=null)
 		{
 			String ipAddress = rantronSpiderProxy.getProxy();
