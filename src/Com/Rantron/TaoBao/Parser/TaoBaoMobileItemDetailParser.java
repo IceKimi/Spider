@@ -53,7 +53,14 @@ public class TaoBaoMobileItemDetailParser {
 			quantityStr = quantityStr.replace("\\\"", "");
 			quantityStr = quantityStr.replace(":", "");
 		}
-		totalSoldQuantity = Integer.parseInt(quantityStr);
+		try
+		{
+			totalSoldQuantity = Integer.parseInt(quantityStr);
+		}
+		catch(Exception e)
+		{
+			
+		}
 		return totalSoldQuantity;
 	}
 	
@@ -115,6 +122,13 @@ public class TaoBaoMobileItemDetailParser {
 		return SellerNick;
 	}
 	
+	public static String getItemSellerIdByHtml(String htmlContent)
+	{
+		JSONArray array = new JSONArray("["+htmlContent+"]");
+		String shopTitle = array.getJSONObject(0).getJSONObject("data").getJSONObject("seller").getString("userNumId");
+		return shopTitle;
+	}
+	
 	public static String getItemShopTitleByHtml(String htmlContent)
 	{
 		JSONArray array = new JSONArray("["+htmlContent+"]");
@@ -157,6 +171,7 @@ public class TaoBaoMobileItemDetailParser {
 		jsonMap.put("Props", getItemPropsByHtml(htmlContent));
 		jsonMap.put("Location", getItemLocationByHtml(htmlContent));
 		jsonMap.put("SellerNick", getItemSellerNickByHtml(htmlContent));
+		jsonMap.put("SellerId", getItemSellerIdByHtml(htmlContent));
 		jsonMap.put("ShopTitle", getItemShopTitleByHtml(htmlContent));
 		jsonMap.put("ShopType", getItemShopTypeByHtml(htmlContent));
 		JSONObject jsonObject = new JSONObject(jsonMap);

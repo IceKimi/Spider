@@ -5,12 +5,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import Com.Rantron.Proxy.RantronSpiderProxy;
 import Com.Rantron.TaoBao.Spider.RantronSpider;
 import Com.Rantron.TaoBao.Spider.TaoBaoItemCommentSpider;
-import Com.Rantron.TaoBao.Spider.TaoBaoSearchPageSpider;
 
 public class CommentsExecutor {
 
@@ -21,13 +19,13 @@ public class CommentsExecutor {
 //		proxy.setProxys("192.168.0.33;192.168.0.46;192.168.0.47");
 
 		ExecutorService pool = Executors.newFixedThreadPool(1);
-		final String itemid = "522987774537";
-
+		final String itemid = "522953047812";
+		final String sellerid ="2228361831";
 		Runnable runner = new Runnable() {
 			@Override
 			public void run() {
 				TaoBaoItemCommentSpider Spider = new TaoBaoItemCommentSpider();
-				JSONArray jsonArray = (JSONArray) Spider.getItemComments(itemid, RantronSpider.ECOMMERCE.TAOBAO);
+				List<String> jsonArray = (List<String>) Spider.getItemComments(itemid,sellerid, RantronSpider.ECOMMERCE.TMALL);
 				System.out.println(jsonArray);
 
 			}

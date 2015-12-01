@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import Com.Rantron.TaoBao.Spider.AlibabaItemDetailSpider;
 import Com.Rantron.TaoBao.Spider.AlibabaSearchPageSpider;
 import Com.Rantron.TaoBao.Spider.RantronSpider;
+import Com.Rantron.TaoBao.Spider.TaoBaoItemCommentSpider;
 import Com.Rantron.TaoBao.Spider.Cache.SpiderCache;
 import Com.Rantron.TaoBao.Spider.Cache.TaoBaoItemCache;
 import Com.Rantron.TaoBao.Spider.DB.AlibabaItemDetailBase2DB;
@@ -40,6 +42,7 @@ public class SpiderExecutor {
 								spiderCache.add(itemid);
 								JSONObject jsonObj = (JSONObject) detailSpider.getItemDetailByItemid(itemid);
 								alibabaItemDetailBase2DB.add2DB(jsonObj, "海康");
+								
 							}
 							Thread.sleep(1000);
 						}

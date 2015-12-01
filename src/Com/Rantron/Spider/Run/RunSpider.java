@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import Com.Rantron.TaoBao.Spider.TaoBaoItemDetailSpider;
 import Com.Rantron.TaoBao.Spider.TaoBaoSearchPageSpider;
 import Com.Rantron.TaoBao.Spider.Cache.SpiderCache;
 import Com.Rantron.TaoBao.Spider.Cache.TaoBaoItemCache;
+import Com.Rantron.TaoBao.Spider.DB.ItemComments2DB;
 import Com.Rantron.TaoBao.Spider.DB.TaoBaoItemDetailBase2DB;
 import Com.Rantron.TaoBao.Spider.RantronSpider;
+import Com.Rantron.TaoBao.Spider.TaoBaoItemCommentSpider;
 
 
 public class RunSpider {
@@ -25,9 +28,10 @@ public class RunSpider {
 		
 		
 		TaoBaoSearchPageSpider searchPageSpider = new TaoBaoSearchPageSpider();
-		ExecutorService pool = Executors.newFixedThreadPool(5);
+		ExecutorService pool = Executors.newFixedThreadPool(2);
 		final SpiderCache spiderCache = new TaoBaoItemCache();
 		final TaoBaoItemDetailBase2DB baoItemDetailBase2DB = new TaoBaoItemDetailBase2DB();
+		final ItemComments2DB itemComments2DB = new ItemComments2DB();
 		spiderCache.setCacheFile("D:/workspace/RantronSpider/CacheFile/itemid");
 		for (int i = 0; i < 100; i++) {
 			final int b = i;
@@ -42,6 +46,7 @@ public class RunSpider {
 						System.out.println(Thread.currentThread().getName()+"\tStart\t"+"task"+(b+1));
 						for (String itemid : itemidlist) {
 							TaoBaoItemDetailSpider detailSpider = new TaoBaoItemDetailSpider();
+							TaoBaoItemCommentSpider commentSpider = new TaoBaoItemCommentSpider();
 							//detailSpider.setProxy(proxy);
 							detailSpider.setAccessWay(RantronSpider.AccessWay.MOBILE);
 							if(!spiderCache.contain(itemid))
@@ -49,6 +54,13 @@ public class RunSpider {
 								spiderCache.add(itemid);
 								JSONObject jsonObj = (JSONObject)detailSpider.getItemDetailByItemid(itemid);
 								baoItemDetailBase2DB.add2DB(jsonObj, "海康");
+								List<String> itemComments = null;
+								if(jsonObj.getString("ShopType").equals("C"))
+									itemComments = (List<String>) commentSpider.getItemComments(itemid,"",RantronSpider.ECOMMERCE.TAOBAO);
+								else if(jsonObj.getString("ShopType").equals("B"))
+									itemComments = (List<String>) commentSpider.getItemComments(itemid,jsonObj.getString("SellerId"), RantronSpider.ECOMMERCE.TMALL);
+								if(itemComments.size()>0)
+									itemComments2DB.add2DB(itemComments, Long.parseLong(itemid), "海康", 1);
 							}
 							Thread.sleep(100);
 						}

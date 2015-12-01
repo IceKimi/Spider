@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Com.Rantron.Proxy.RantronSpiderProxy;
 import Com.Rantron.TaoBao.Parser.AlibabaSearchPageParser;
 
 public class AlibabaSearchPageSpider extends RantronSpider {

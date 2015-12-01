@@ -12,7 +12,7 @@ import Com.Rantron.TaoBao.Parser.TaoBaoSearchPageParser;
 public class TaoBaoSearchPageSpider extends RantronSpider {
 
 
-	private static final String ItemDetail_Mobile_URL_TAMPLATE = "http://hws.m.taobao.com/cache/wdetail/5.0/?id=[$ITEMID]";
+//	private static final String ItemDetail_Mobile_URL_TAMPLATE = "http://hws.m.taobao.com/cache/wdetail/5.0/?id=[$ITEMID]";
 	private static final String Search_URL_TAMPLATE = "https://s.taobao.com/search?q=[$SEARCHWORDS]&bcoffset=[$NTOFFSET]&ntoffset=[$NTOFFSET]&s=[$OFFSET]";
 
 	private AccessWay accessWay = AccessWay.PC;
