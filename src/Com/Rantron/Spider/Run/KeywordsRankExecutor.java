@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import Com.Rantron.Proxy.RantronSpiderProxy;
+import Com.Rantron.TaoBao.Spider.RantronSpider;
 import Com.Rantron.TaoBao.Spider.TaoBaoSearchPageSpider;
 
 public class KeywordsRankExecutor {
@@ -15,8 +16,8 @@ public class KeywordsRankExecutor {
 		final RantronSpiderProxy proxy = RantronSpiderProxy.getInstance();
 		// proxy.setProxys("123.59.87.193;120.132.93.186;120.132.93.131;120.132.93.183");
 		proxy.setProxys("192.168.0.33;192.168.0.46;192.168.0.47");
-		final String targerId = "524119206813";
-		String[] searchWords = { "狐狸毛超大毛领羽绒服","鹅绒羽绒服中长款女","大毛领鹅绒羽绒服中长款","大牌鹅绒羽绒服中长款女"};
+		final String targerId = "524393794968";
+		String[] searchWords = { "老佛爷羽绒服"};
 
 		ExecutorService pool = Executors.newFixedThreadPool(2);
 		for (final String keywords : searchWords) {
@@ -29,8 +30,7 @@ public class KeywordsRankExecutor {
 					// TODO Auto-generated method stub
 					for (int i = 0; i < 100; i++) {
 
-						final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords(keywords,
-								i);
+						final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords(keywords,i,RantronSpider.SORTTYPE.DEFAULT);
 						for (int index = 0; index < itemidlist.size(); index++) {
 							if (itemidlist.get(index).compareTo(targerId)==0)
 								System.out.println("page:" + (i + 1) + "\t" + "index:" + index+"\tkeywords:"+keywords);

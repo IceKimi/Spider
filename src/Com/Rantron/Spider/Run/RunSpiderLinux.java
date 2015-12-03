@@ -33,7 +33,7 @@ public class RunSpiderLinux {
 		for (final String keyword : keywords) {
 			for (int i = 0; i < 100; i++) {
 				final int b = i;
-				final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords(keyword, b);
+				final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords(keyword, b,RantronSpider.SORTTYPE.SALEDESC);
 
 				Runnable runner = new Runnable() {
 

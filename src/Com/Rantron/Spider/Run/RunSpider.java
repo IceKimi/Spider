@@ -35,7 +35,7 @@ public class RunSpider {
 		spiderCache.setCacheFile("D:/workspace/RantronSpider/CacheFile/itemid");
 		for (int i = 0; i < 100; i++) {
 			final int b = i;
-			final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords("海康威视", b);
+			final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords("海康威视", b,RantronSpider.SORTTYPE.SALEDESC);
 			
 			Runnable runner = new  Runnable() {
 

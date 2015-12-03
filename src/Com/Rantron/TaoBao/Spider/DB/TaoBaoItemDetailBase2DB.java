@@ -17,7 +17,7 @@ public class TaoBaoItemDetailBase2DB {
 		try {
 			connection = JDBCUtils.getConnection("jdbc:mysql://192.168.0.33:3307/rantron_spider?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=UTF-8");
 			connection.setAutoCommit(false);
-			pstmt = connection.prepareStatement("insert into items (itemid,cid,keyword,title,totalSoldQuantity,price,props,location,sellerNick,shopType,shopTitle,createtime) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = connection.prepareStatement("insert into taoBaoItems (itemid,cid,keyword,title,totalSoldQuantity,price,props,brandName,outerId,location,sellerNick,shopType,shopTitle,createtime) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,6 +34,8 @@ public class TaoBaoItemDetailBase2DB {
 		String title = jsonObj.getString("Title");
 		int soldQuantitly = jsonObj.getInt("SoldQuantity");
 		double price = jsonObj.getDouble("Price");
+		String brandName = jsonObj.getString("brandName");
+		String outerId = jsonObj.getString("outerId");
 		String props = jsonObj.get("Props").toString();
 		String location = jsonObj.getString("Location");
 		String sellerNick = jsonObj.getString("SellerNick");
@@ -47,11 +49,13 @@ public class TaoBaoItemDetailBase2DB {
 			pstmt.setInt(5,soldQuantitly );
 			pstmt.setDouble(6, price);
 			pstmt.setString(7, props);
-			pstmt.setString(8, location);
-			pstmt.setString(9, sellerNick);
-			pstmt.setString(10, shopType);
-			pstmt.setString(11, shopTitle);
-			pstmt.setLong(12, DateTimeUtil.GetCurrentUnixDate());
+			pstmt.setString(8, brandName);
+			pstmt.setString(9, outerId);
+			pstmt.setString(10, location);
+			pstmt.setString(11, sellerNick);
+			pstmt.setString(12, shopType);
+			pstmt.setString(13, shopTitle);
+			pstmt.setLong(14, DateTimeUtil.GetCurrentUnixDate());
 			pstmt.execute();
 			connection.commit();
 		} catch (SQLException e) {
@@ -74,6 +78,8 @@ public class TaoBaoItemDetailBase2DB {
 		int soldQuantitly = jsonObj.getInt("SoldQuantity");
 		double price = jsonObj.getDouble("Price");
 		String props = jsonObj.getString("Props");
+		String brandName = jsonObj.getString("brandName");
+		String outerId = jsonObj.getString("outerId");
 		String location = jsonObj.getString("Location");
 		String sellerNick = jsonObj.getString("SellerNick");
 		String shopTitle = jsonObj.getString("ShopTitle");
@@ -86,11 +92,13 @@ public class TaoBaoItemDetailBase2DB {
 			pstmt.setInt(5,soldQuantitly );
 			pstmt.setDouble(6, price);
 			pstmt.setString(7, props);
-			pstmt.setString(8, location);
-			pstmt.setString(9, sellerNick);
-			pstmt.setString(10, shopType);
-			pstmt.setString(11, shopTitle);
-			pstmt.setLong(12, DateTimeUtil.GetCurrentUnixDate());
+			pstmt.setString(8, brandName);
+			pstmt.setString(9, outerId);
+			pstmt.setString(10, location);
+			pstmt.setString(11, sellerNick);
+			pstmt.setString(12, shopType);
+			pstmt.setString(13, shopTitle);
+			pstmt.setLong(14, DateTimeUtil.GetCurrentUnixDate());
 			pstmt.execute();
 			connection.commit();
 		} catch (SQLException e) {

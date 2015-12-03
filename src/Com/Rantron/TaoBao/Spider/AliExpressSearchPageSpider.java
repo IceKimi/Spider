@@ -12,7 +12,7 @@ public class AliExpressSearchPageSpider extends RantronSpider{
 
 	private static final String aliExpressSearchUrl = "http://www.aliexpress.com/w/wholesale-hikvision.html?shipCountry=all&SortType=default&SearchText=[$KEYWORD]&g=y&page=[$PAGE]";
 	
-	public List<String> getSearchPageItemUrlBySearchWords(String SearchWords, int pageIndex) {
+	public List<String> getSearchPageItemUrlBySearchWords(String SearchWords, int pageIndex,SORTTYPE sortType) {
 		Map<String, String> params = new HashMap<String, String>();
 		String url = "";
 		List<String> itemUrls = new ArrayList<String>();
@@ -21,7 +21,8 @@ public class AliExpressSearchPageSpider extends RantronSpider{
 
 					url = aliExpressSearchUrl.replace("[$KEYWORD]", URLEncoder.encode(SearchWords, "GBK"))
 							.replace("[$PAGE]", String.valueOf(pageIndex));
-
+					if(sortType == SORTTYPE.SALEDESC)
+						url+="&SortType=total_tranpro_desc";
 					params.put(CatchParamEnum.TARGET_TIMEOUT.getName(), "5000");
 					String htmlcontent = CatchHtml(url, params, proxy);
 					itemUrls.addAll(AliExpressSearchPageParser.getItemUrl(htmlcontent));

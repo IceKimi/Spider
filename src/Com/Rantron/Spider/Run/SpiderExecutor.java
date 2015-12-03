@@ -27,7 +27,7 @@ public class SpiderExecutor {
 		spiderCache.setCacheFile("D:/workspace/RantronSpider/CacheFile/Alibabaitemid");
 		ExecutorService pool = Executors.newFixedThreadPool(5);
 		for (int i = 1; i < 100; i++) {
-			final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords("海康", i);
+			final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords("海康", i,RantronSpider.SORTTYPE.DEFAULT);
 			final int b = i;
 			Runnable runner = new Runnable() {
 				@Override

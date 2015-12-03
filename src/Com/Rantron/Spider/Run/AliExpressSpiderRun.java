@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import Com.Rantron.TaoBao.Spider.AliExpressItemDetailSpider;
 import Com.Rantron.TaoBao.Spider.AliExpressSearchPageSpider;
+import Com.Rantron.TaoBao.Spider.RantronSpider;
 import Com.Rantron.TaoBao.Spider.Cache.ItemCache;
 import Com.Rantron.TaoBao.Spider.Cache.SpiderCache;
 import Com.Rantron.TaoBao.Spider.DB.AliExpressItemDetail2DB;
@@ -26,7 +27,7 @@ public class AliExpressSpiderRun {
 		cache.setCacheFile("D:\\workspace\\RantronSpider\\CacheFile\\AliExpressItemid");
 		for (int i = 0; i < 100; i++) 
 		{
-			final List<String> itemUrls = searchPageSpider.getSearchPageItemUrlBySearchWords(keyword, i);
+			final List<String> itemUrls = searchPageSpider.getSearchPageItemUrlBySearchWords(keyword, i,RantronSpider.SORTTYPE.DEFAULT);
 			Runnable runner = new Runnable() {
 				@Override
 				public void run() {

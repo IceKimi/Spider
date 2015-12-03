@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import Com.Rantron.Spider.bean.TaoBaoItemBase;
+import jdk.internal.org.objectweb.asm.commons.StaticInitMerger;
 
 public class TaoBaoMobileItemDetailParser {
 
@@ -158,7 +159,46 @@ public class TaoBaoMobileItemDetailParser {
 		taoBaoItemBase.setShopType(getItemShopTypeByHtml(htmlContent));
 		return taoBaoItemBase;
 	}
+	
+	public static String getItemBrandNameByHtml(String htmlContent)
+	{
+		JSONArray array = new JSONArray("["+htmlContent+"]");
+		try {
+			array = array.getJSONObject(0).getJSONObject("data").getJSONArray("props");
+			int len = array.length();
+			for(int i=0;i<len;i++)
+			{
+				String propName = array.getJSONObject(i).get("name").toString().trim();
+				String propValue = array.getJSONObject(i).get("value").toString().trim();
+				if(propName.equals("品牌"))
+					return propValue;
+			}
+		} catch (JSONException e) {
+			// TODO: handle exception
+		}
+		
+		return "";
+	}
 
+	public static String getItemOuterIdByHtml(String htmlContent)
+	{
+		JSONArray array = new JSONArray("["+htmlContent+"]");
+		try {
+			array = array.getJSONObject(0).getJSONObject("data").getJSONArray("props");
+			int len = array.length();
+			for(int i=0;i<len;i++)
+			{
+				String propName = array.getJSONObject(i).get("name").toString().trim();
+				String propValue = array.getJSONObject(i).get("value").toString().trim();
+				if(propName.equals("型号"))
+					return propValue;
+			}
+		} catch (JSONException e) {
+			// TODO: handle exception
+		}
+		
+		return "";
+	}
 	public static Object getJsonData(String htmlContent) {
 		// TODO Auto-generated method stub
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
@@ -169,11 +209,14 @@ public class TaoBaoMobileItemDetailParser {
 		jsonMap.put("SoldQuantity", getItemSoldQuantityByHtml(htmlContent));
 		jsonMap.put("Price", getItemPriceByHtml(htmlContent));
 		jsonMap.put("Props", getItemPropsByHtml(htmlContent));
+		jsonMap.put("brandName", getItemBrandNameByHtml(htmlContent));
+		jsonMap.put("outerId", getItemOuterIdByHtml(htmlContent));
 		jsonMap.put("Location", getItemLocationByHtml(htmlContent));
 		jsonMap.put("SellerNick", getItemSellerNickByHtml(htmlContent));
 		jsonMap.put("SellerId", getItemSellerIdByHtml(htmlContent));
 		jsonMap.put("ShopTitle", getItemShopTitleByHtml(htmlContent));
 		jsonMap.put("ShopType", getItemShopTypeByHtml(htmlContent));
+		
 		JSONObject jsonObject = new JSONObject(jsonMap);
 		return jsonObject;
 	}

@@ -17,7 +17,7 @@ public class AliExpressItemDetail2DB {
 		try {
 			connection = JDBCUtils.getConnection("jdbc:mysql://192.168.0.33:3307/rantron_spider?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=UTF-8");
 			connection.setAutoCommit(false);
-			pstmt = connection.prepareStatement("insert into AliExpressItems (itemid,keywords,title,totalSoldQuantity,price,props,brandName,outerId,address,shopTitle,createtime) values (?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt = connection.prepareStatement("insert into aliExpressItems (itemid,keywords,title,totalSoldQuantity,price,props,brandName,outerId,address,shopTitle,createtime) values (?,?,?,?,?,?,?,?,?,?,?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -19,7 +19,7 @@ public class AlibabaItemDetailBase2DB {
 					"jdbc:mysql://192.168.0.33:3307/rantron_spider?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=UTF-8");
 			connection.setAutoCommit(false);
 			pstmt = connection.prepareStatement(
-					"insert into AliBaBaItems (itemid,keywords,title,totalSoldQuantity,sellerNick,dealLevel,bizType,price,orgPrice,brandName,props,outerId,province,city,createTime) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into aliBaBaItems (itemid,keywords,title,totalSoldQuantity,sellerNick,dealLevel,bizType,price,orgPrice,brandName,props,outerId,province,city,createTime) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

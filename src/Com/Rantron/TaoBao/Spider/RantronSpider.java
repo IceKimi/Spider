@@ -12,6 +12,15 @@ import cn.edu.hfut.dmic.webcollector.net.RequestConfig;
 public class RantronSpider {
 
 	
+	
+	public enum SORTTYPE
+	{
+		DEFAULT,
+		SALEDESC,
+		RENQIDESC,
+		CREDITDESC;
+		
+	}
 	public enum AccessWay {
 		PC,
 		MOBILE;
