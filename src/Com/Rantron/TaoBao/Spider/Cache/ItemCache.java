@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TaoBaoItemCache implements SpiderCache{
+public class ItemCache implements SpiderCache{
 
 	private Set<String> itemIdSet = null;
 	private BufferedWriter bufferedWriter;

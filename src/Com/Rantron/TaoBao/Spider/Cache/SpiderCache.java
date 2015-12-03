@@ -4,7 +4,7 @@ public interface SpiderCache {
 
 	public void setCacheFile(String path);
 	
-	public boolean contain(String id);
+	public boolean contain(String obj);
 	
 	public void add(String id);
 	

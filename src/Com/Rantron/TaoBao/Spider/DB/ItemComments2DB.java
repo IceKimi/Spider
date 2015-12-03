@@ -18,7 +18,7 @@ public class ItemComments2DB {
 		try {
 			connection = JDBCUtils.getConnection("jdbc:mysql://192.168.0.33:3307/rantron_spider?rewriteBatchedStatements=true&useUnicode=true&characterEncoding=UTF-8");
 			connection.setAutoCommit(false);
-			pstmt = connection.prepareStatement("insert into itemComments (itemid,keywords,brandId,comments,createtime) values (?,?,?,?,?)");
+			pstmt = connection.prepareStatement("insert into itemComments (itemid,keywords,brandId,rateType,shopType,comments,createtime) values (?,?,?,?,?,?,?)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,7 +26,7 @@ public class ItemComments2DB {
 	
 	}
 	
-	public synchronized void add2DB(List<String> comments,long itemid,String keywords,int brandid)
+	public synchronized void add2DB(List<String> comments,long itemid,String keywords,int rateType,String shopType,int brandid)
 	{
 		if(connection==null || pstmt==null)
 			initDB();
@@ -36,8 +36,10 @@ public class ItemComments2DB {
 				pstmt.setLong(1,itemid);
 				pstmt.setString(2, keywords);
 				pstmt.setInt(3, brandid);
-				pstmt.setString(4, comment);
-				pstmt.setLong(5, DateTimeUtil.GetCurrentUnixDate());
+				pstmt.setInt(4, rateType);
+				pstmt.setString(5, shopType);
+				pstmt.setString(6, comment);
+				pstmt.setLong(7, DateTimeUtil.GetCurrentUnixDate());
 				pstmt.addBatch();
 			}
 			pstmt.executeBatch();

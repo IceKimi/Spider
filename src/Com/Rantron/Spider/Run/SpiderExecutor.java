@@ -12,7 +12,7 @@ import Com.Rantron.TaoBao.Spider.AlibabaSearchPageSpider;
 import Com.Rantron.TaoBao.Spider.RantronSpider;
 import Com.Rantron.TaoBao.Spider.TaoBaoItemCommentSpider;
 import Com.Rantron.TaoBao.Spider.Cache.SpiderCache;
-import Com.Rantron.TaoBao.Spider.Cache.TaoBaoItemCache;
+import Com.Rantron.TaoBao.Spider.Cache.ItemCache;
 import Com.Rantron.TaoBao.Spider.DB.AlibabaItemDetailBase2DB;
 import Com.Rantron.TaoBao.Spider.DB.TaoBaoItemDetailBase2DB;
 
@@ -22,7 +22,7 @@ public class SpiderExecutor {
 		// TODO Auto-generated method stub
 
 		AlibabaSearchPageSpider searchPageSpider = new AlibabaSearchPageSpider();
-		final SpiderCache spiderCache = new TaoBaoItemCache();
+		final SpiderCache spiderCache = new ItemCache();
 		final AlibabaItemDetailBase2DB alibabaItemDetailBase2DB = new AlibabaItemDetailBase2DB();
 		spiderCache.setCacheFile("D:/workspace/RantronSpider/CacheFile/Alibabaitemid");
 		ExecutorService pool = Executors.newFixedThreadPool(5);

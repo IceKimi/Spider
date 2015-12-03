@@ -19,7 +19,6 @@ public class TaoBaoItemDetailSpider extends RantronSpider {
 	private static final String ItemDetail_Mobile_URL_TAMPLATE = "http://hws.m.taobao.com/cache/wdetail/5.0/?id=[$ITEMID]";
 	private static final String ItemDetail_URL_TAMPLATE = "";
 	
-	private AccessWay accessWay = AccessWay.MOBILE;
 	
 	public Object getItemDetailByItemid(String itemid)
 	{

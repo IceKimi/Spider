@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import Com.Rantron.TaoBao.Spider.TaoBaoItemDetailSpider;
 import Com.Rantron.TaoBao.Spider.TaoBaoSearchPageSpider;
 import Com.Rantron.TaoBao.Spider.Cache.SpiderCache;
-import Com.Rantron.TaoBao.Spider.Cache.TaoBaoItemCache;
+import Com.Rantron.TaoBao.Spider.Cache.ItemCache;
 import Com.Rantron.TaoBao.Spider.DB.ItemComments2DB;
 import Com.Rantron.TaoBao.Spider.DB.TaoBaoItemDetailBase2DB;
 import Com.Rantron.TaoBao.Spider.RantronSpider;
@@ -29,13 +29,13 @@ public class RunSpider {
 		
 		TaoBaoSearchPageSpider searchPageSpider = new TaoBaoSearchPageSpider();
 		ExecutorService pool = Executors.newFixedThreadPool(2);
-		final SpiderCache spiderCache = new TaoBaoItemCache();
+		final SpiderCache spiderCache = new ItemCache();
 		final TaoBaoItemDetailBase2DB baoItemDetailBase2DB = new TaoBaoItemDetailBase2DB();
 		final ItemComments2DB itemComments2DB = new ItemComments2DB();
 		spiderCache.setCacheFile("D:/workspace/RantronSpider/CacheFile/itemid");
 		for (int i = 0; i < 100; i++) {
 			final int b = i;
-			final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords("海康", b);
+			final List<String> itemidlist = searchPageSpider.getSearchPageItemIdListBySearchWords("海康威视", b);
 			
 			Runnable runner = new  Runnable() {
 
@@ -53,14 +53,26 @@ public class RunSpider {
 							{
 								spiderCache.add(itemid);
 								JSONObject jsonObj = (JSONObject)detailSpider.getItemDetailByItemid(itemid);
-								baoItemDetailBase2DB.add2DB(jsonObj, "海康");
+								baoItemDetailBase2DB.add2DB(jsonObj, "海康威视");
 								List<String> itemComments = null;
 								if(jsonObj.getString("ShopType").equals("C"))
-									itemComments = (List<String>) commentSpider.getItemComments(itemid,"",RantronSpider.ECOMMERCE.TAOBAO);
+								{
+									itemComments = (List<String>) commentSpider.getItemComments(itemid,"",1,RantronSpider.ECOMMERCE.TAOBAO);
+									if(itemComments.size()>0)
+										itemComments2DB.add2DB(itemComments, Long.parseLong(itemid) ,"海康威视",1,"C", 1);
+									itemComments = (List<String>) commentSpider.getItemComments(itemid,"",0,RantronSpider.ECOMMERCE.TAOBAO);
+									if(itemComments.size()>0)
+										itemComments2DB.add2DB(itemComments, Long.parseLong(itemid),"海康威视",0,"C" , 1);
+									itemComments = (List<String>) commentSpider.getItemComments(itemid,"",-1,RantronSpider.ECOMMERCE.TAOBAO);
+									if(itemComments.size()>0)
+										itemComments2DB.add2DB(itemComments, Long.parseLong(itemid), "海康威视",-1,"C", 1);
+								}
 								else if(jsonObj.getString("ShopType").equals("B"))
-									itemComments = (List<String>) commentSpider.getItemComments(itemid,jsonObj.getString("SellerId"), RantronSpider.ECOMMERCE.TMALL);
-								if(itemComments.size()>0)
-									itemComments2DB.add2DB(itemComments, Long.parseLong(itemid), "海康", 1);
+								{
+									itemComments = (List<String>) commentSpider.getItemComments(itemid,jsonObj.getString("SellerId"),1, RantronSpider.ECOMMERCE.TMALL);
+									if(itemComments.size()>0)
+										itemComments2DB.add2DB(itemComments, Long.parseLong(itemid), "海康威视",99999,"B", 1);
+								}
 							}
 							Thread.sleep(100);
 						}

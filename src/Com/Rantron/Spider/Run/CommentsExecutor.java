@@ -25,7 +25,7 @@ public class CommentsExecutor {
 			@Override
 			public void run() {
 				TaoBaoItemCommentSpider Spider = new TaoBaoItemCommentSpider();
-				List<String> jsonArray = (List<String>) Spider.getItemComments(itemid,sellerid, RantronSpider.ECOMMERCE.TMALL);
+				List<String> jsonArray = (List<String>) Spider.getItemComments(itemid,sellerid, 0,RantronSpider.ECOMMERCE.TMALL);
 				System.out.println(jsonArray);
 
 			}
