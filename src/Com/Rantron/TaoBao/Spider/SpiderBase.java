@@ -9,7 +9,7 @@ import Com.Rantron.Proxy.RantronSpiderProxy;
 import cn.edu.hfut.dmic.webcollector.net.HttpRequest;
 import cn.edu.hfut.dmic.webcollector.net.RequestConfig;
 
-public class RantronSpider {
+public class SpiderBase {
 
 	
 	

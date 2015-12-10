@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 
-import Com.Rantron.TaoBao.Spider.RantronSpider;
-import Com.Rantron.TaoBao.Spider.RantronSpider.CatchParamEnum;
 
 public class AliExpressItemDetailParser {
 

@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import Com.Rantron.Spider.bean.TaoBaoItemBase;
-import jdk.internal.org.objectweb.asm.commons.StaticInitMerger;
 
 public class TaoBaoMobileItemDetailParser {
 
@@ -199,7 +198,7 @@ public class TaoBaoMobileItemDetailParser {
 		
 		return "";
 	}
-	public static Object getJsonData(String htmlContent) {
+	public static JSONObject getJsonData(String htmlContent) {
 		// TODO Auto-generated method stub
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		jsonMap.put("Itemid", getItemIdByHtml(htmlContent));
