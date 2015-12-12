@@ -39,6 +39,11 @@ public class TaoBaoSpider extends SpiderBase {
 		params.put(CatchParamEnum.HEADER_REFERER.getName(), "https://s.taobao.com/");
 		params.put(CatchParamEnum.TARGET_TIMEOUT.getName(), "5000");
 		String htmlcontent = CatchHtml(url, params, proxy);
+		if(TaoBaoMobileItemDetailParser.blocked(htmlcontent))
+		{
+			System.out.println(url+"\t has been blocked");
+			return null;
+		}
 		jsonObject =  TaoBaoMobileItemDetailParser.getJsonData(htmlcontent);
 		return jsonObject;
 	}

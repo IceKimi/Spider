@@ -13,6 +13,15 @@ import Com.Rantron.Spider.bean.TaoBaoItemBase;
 
 public class TaoBaoMobileItemDetailParser {
 
+	
+	public static boolean blocked(String htmlContent)
+	{
+		JSONArray array = new JSONArray("["+htmlContent+"]");
+		if(array.getJSONObject(0).get("ret").toString().contains("checkcode"))
+			return true;
+		return false;
+	}
+	
 	public static String getItemTitleByHtml(String htmlContent)
 	{
 		JSONArray array = new JSONArray("["+htmlContent+"]");

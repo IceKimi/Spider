@@ -38,16 +38,10 @@ public class RantronSpiderProxy {
 					return (int) (o1.value - o2.value);
 				}
 			});
-			if (pairs.get(0).value > System.currentTimeMillis() - 3000) {
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			} else {
+			 {
 				pairs.get(0).value = System.currentTimeMillis();
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

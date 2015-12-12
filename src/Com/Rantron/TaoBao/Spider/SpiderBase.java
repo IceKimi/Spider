@@ -90,7 +90,7 @@ public class SpiderBase {
 		if(rantronSpiderProxy!=null)
 		{
 			String ipAddress = rantronSpiderProxy.getProxy();
-			InetSocketAddress addr = new InetSocketAddress(ipAddress, 3128);
+			InetSocketAddress addr = new InetSocketAddress(ipAddress, 18002);
 			Proxy proxy = new Proxy(Proxy.Type.HTTP, addr);
 			config.setProxy(proxy);
 		}
